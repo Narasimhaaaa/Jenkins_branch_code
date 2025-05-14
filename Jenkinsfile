@@ -14,7 +14,7 @@ pipeline {
 
         stage("test") {
             when {
-                expression { env.BRANCH_NAME == 'main' }
+                expression { env.BRANCH_NAME == 'main' || BRANCH_NAME == 'dev' }
             }
             steps {
                 echo "test one"
