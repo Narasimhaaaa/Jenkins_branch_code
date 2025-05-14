@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        BRANCH_NAME = "${env.BRANCH_NAME}"
+        NEW_VERSION ='1.0.0'
     }
 
     stages {
@@ -22,8 +22,21 @@ pipeline {
         }
 
         stage('deploy') {
-            steps {
-                echo "deploy"
+            parallel{
+                stage('deploye stage'){
+                    steps{
+                        echo "deploying the stage"
+                    }
+                }
+                stage('deployee prod'){
+                    when{
+                        expression { BRANCH_NAME == 'main'}
+                    }
+                    steps{
+                        echo 'deployee'
+                        echo "${NEW_VERSION}"
+                    }
+                }
             }
         }
     }
