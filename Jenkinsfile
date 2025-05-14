@@ -1,33 +1,36 @@
-pipeline{
+pipeline {
     agent any
-        enviroment{
-            BRANCH_NAME ="${evn.BRANCH_NAME}"
-        }
-        stages{
-            stage("build"){
-                step{
-                    echo"build some thing"
-                }
-            }
 
-            stage("test"){
-                when{
-                    expression ${env.BRANCH_NAME == 'main'}
-                }
-                step{
-                    echo "test one"
-                }
-            }
+    environment {
+        BRANCH_NAME = "${env.BRANCH_NAME}"
+    }
 
-            stage('deploy'){
-                step{
-                    echo "deployeee"
-                }
+    stages {
+        stage("build") {
+            steps {
+                echo "build something"
             }
         }
-        post{
-            always{
-                echo "cleaning"
+
+        stage("test") {
+            when {
+                expression { env.BRANCH_NAME == 'main' }
+            }
+            steps {
+                echo "test one"
             }
         }
+
+        stage('deploy') {
+            steps {
+                echo "deploy"
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "cleaning"
+        }
+    }
 }
