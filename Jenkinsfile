@@ -30,14 +30,14 @@ pipeline {
                     }
                 }
                 stage('deployee prod'){
-                    when{
-                        expression { BRANCH_NAME == 'main'}
-                    }
                     steps{
-                        echo 'deployee'
-                        echo "${NEW_VERSION}"
-                        echo "${MY_CRED}"
-                        sh "${MY_CRED}"
+                        script{
+                            echo 'deployee'
+                            echo "${NEW_VERSION}"
+                            echo "${MY_CRED}"
+                            sh "${MY_CRED}"
+
+                        }
                     }
                 }
             }
