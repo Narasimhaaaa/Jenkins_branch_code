@@ -29,17 +29,16 @@ pipeline {
                         echo "deploying the stage"
                     }
                 }
-                stage('deployee prod'){
-                    steps{
-                        script{
-                            echo 'deployee'
-                            echo "${NEW_VERSION}"
-                            echo "${MY_CRED}"
-                            sh "${MY_CRED}"
-
-                        }
-                    }
+                stage('Deploy to Prod') {
+                    steps {
+                        withCredentials([usernamePassword(credentialsId: 'cred', 
+                                          usernameVariable: 'USERNAME', 
+                                          passwordVariable: 'PASSWORD')]) {
+                        sh 'echo Username: $USERNAME, Password: $PASSWORD'
+                                                            }
+                            }           
                 }
+
             }
         }
     }
