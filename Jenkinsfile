@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         NEW_VERSION ='1.0.0'
+        MY_CRED = credentials('cred')
     }
 
     stages {
@@ -35,6 +36,8 @@ pipeline {
                     steps{
                         echo 'deployee'
                         echo "${NEW_VERSION}"
+                        echo "${MY_CRED}"
+                        sh "${MY_CRED}"
                     }
                 }
             }
